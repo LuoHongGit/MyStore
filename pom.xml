@@ -10,6 +10,7 @@
     <modules>
         <module>mystore-gateway</module>
         <module>mystore-registry</module>
+        <module>mystore-item</module>
     </modules>
     <packaging>pom</packaging>
 

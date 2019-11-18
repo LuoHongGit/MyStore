@@ -10,3 +10,5 @@ eureka:
     registry-fetch-interval-seconds: 10
 zuul:
   prefix: /api
+  routes:
+    item-service: /item/**
