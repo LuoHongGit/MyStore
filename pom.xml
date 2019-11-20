@@ -11,6 +11,7 @@
         <module>mystore-gateway</module>
         <module>mystore-registry</module>
         <module>mystore-item</module>
+        <module>mystore-common</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -80,6 +81,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
