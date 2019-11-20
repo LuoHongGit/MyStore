@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ * 分类控制层
+ */
 @Controller
 @RequestMapping("/category")
 public class CategoryController {

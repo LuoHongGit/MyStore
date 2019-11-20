@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 分类业务层实现类
+ */
 @Service
 public class CategoryService {
     @Autowired
