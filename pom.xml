@@ -12,6 +12,7 @@
         <module>mystore-registry</module>
         <module>mystore-item</module>
         <module>mystore-common</module>
+        <module>mystore-upload</module>
     </modules>
     <packaging>pom</packaging>
 
