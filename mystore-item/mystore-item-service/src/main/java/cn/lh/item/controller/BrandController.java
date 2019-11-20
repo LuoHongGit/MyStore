@@ -4,11 +4,15 @@ import cn.lh.item.pojo.Brand;
 import cn.lh.item.pojo.PageResult;
 import cn.lh.item.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * 品牌控制层
@@ -19,6 +23,15 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
+    /**
+     * 分页查询品牌
+     * @param key
+     * @param page
+     * @param rows
+     * @param sortBy
+     * @param desc
+     * @return
+     */
     @RequestMapping("/page")
     public ResponseEntity<PageResult<Brand>> findByPage(
             @RequestParam(value = "key",required = false) String key,
@@ -34,6 +47,20 @@ public class BrandController {
         }
 
         return ResponseEntity.ok(pageResult);
+    }
+
+    /**
+     * 新增品牌
+     * @param brand
+     * @param cids
+     * @return
+     */
+    @PostMapping
+    public ResponseEntity<Void> addBrand(Brand brand, @RequestParam("cids")List<Long> cids){
+
+        brandService.addBrand(brand,cids);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }

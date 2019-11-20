@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class BrandService {
     private BrandMapper brandMapper;
 
     /**
-     *
+     * 分页查询品牌
      * @param key
      * @param page
      * @param rows
@@ -54,5 +55,20 @@ public class BrandService {
         PageInfo<Brand> brandPageInfo = new PageInfo<>(brandList);
 
         return new PageResult<Brand>(brandPageInfo.getTotal(),brandPageInfo.getList());
+    }
+
+    /**
+     * 新增品牌
+     * @param brand
+     * @param cids
+     * @return
+     */
+    @Transactional
+    public void addBrand(Brand brand, List<Long> cids) {
+        brandMapper.insert(brand);
+
+        for (Long cid : cids) {
+            brandMapper.addBrandAndCategory(brand.getId(),cid);
+        }
     }
 }

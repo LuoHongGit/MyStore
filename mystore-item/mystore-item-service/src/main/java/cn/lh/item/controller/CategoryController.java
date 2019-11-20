@@ -21,6 +21,11 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * 根据父节点查询所有分类
+     * @param pid
+     * @return
+     */
     @GetMapping("/list")
     public ResponseEntity<List<Category>> findByPid(@RequestParam(value = "pid",defaultValue = "0")Long pid){
         if(pid == null || pid < 0){
