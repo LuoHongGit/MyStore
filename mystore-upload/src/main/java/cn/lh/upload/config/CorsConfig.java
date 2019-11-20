@@ -1,4 +1,4 @@
-package cn.lh.gateway.config;
+package cn.lh.upload.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,8 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter(){
         //创建cors配置类
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        CorsConfiguration corsConfiguration;
+        corsConfiguration = new CorsConfiguration();
 
         //添加配置
         corsConfiguration.addAllowedOrigin("http://manage.mystore.com");

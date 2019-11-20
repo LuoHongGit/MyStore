@@ -1,4 +1,4 @@
-package com.lh.upload;
+package cn.lh.upload;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
