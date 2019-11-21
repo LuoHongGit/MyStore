@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 分类业务层实现类
@@ -27,6 +28,17 @@ public class CategoryService {
         List<Category> categoryList = categoryMapper.select(category);
 
         return categoryList;
+    }
+
+    /**
+     * 通过分类id集合查询分类名称集合
+     * @param ids
+     * @return
+     */
+    public List<String> findNamesByIds(List<Long> ids){
+        List<Category> categories = categoryMapper.selectByIdList(ids);
+
+        return categories.stream().map(categorie -> categorie.getName()).collect(Collectors.toList());
     }
 
 }

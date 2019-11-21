@@ -37,11 +37,17 @@ public class SpecService {
     /**
      * 根据参数组id查询规格参数
      * @param gid
+     * @param cid
+     * @param generic
+     * @param searching
      * @return
      */
-    public List<SpecParam> findSpecParamByGid(Long gid) {
+    public List<SpecParam> findSpecParamByCondition(Long gid, Long cid, Boolean generic, Boolean searching) {
         SpecParam instance = new SpecParam();
         instance.setGroupId(gid);
+        instance.setCid(cid);
+        instance.setGeneric(generic);
+        instance.setSearching(searching);
 
         List<SpecParam> paramList = specParamMapper.select(instance);
 
