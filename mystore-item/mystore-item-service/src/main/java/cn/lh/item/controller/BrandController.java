@@ -77,4 +77,18 @@ public class BrandController {
         return ResponseEntity.ok(brandList);
     }
 
+    /**
+     * 根据品牌id查询品牌
+     */
+    @GetMapping("/id")
+    public ResponseEntity<Brand> findById(@RequestParam("id")Long id){
+        Brand brand = brandService.findById(id);
+
+        if(brand == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(brand);
+    }
+
 }

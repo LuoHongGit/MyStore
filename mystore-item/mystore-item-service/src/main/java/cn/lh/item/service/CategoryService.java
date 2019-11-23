@@ -41,4 +41,12 @@ public class CategoryService {
         return categories.stream().map(categorie -> categorie.getName()).collect(Collectors.toList());
     }
 
+    /**
+     * 根据id查询分类
+     * @param id
+     * @return
+     */
+    public Category findById(Long id) {
+        return categoryMapper.selectByPrimaryKey(id);
+    }
 }

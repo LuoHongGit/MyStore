@@ -2,9 +2,7 @@ package cn.lh.item.service;
 
 import cn.lh.item.bo.SpuBo;
 import cn.lh.item.mapper.*;
-import cn.lh.item.pojo.PageResult;
-import cn.lh.item.pojo.Spu;
-import cn.lh.item.pojo.Stock;
+import cn.lh.item.pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
@@ -12,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Arrays;
@@ -118,7 +117,13 @@ public class GoodsService {
         //新增SpuDetail表
         spuBo.getSpuDetail().setSpuId(spuBo.getId());
         spuDetailMapper.insertSelective(spuBo.getSpuDetail());
+        AddSkuAndStock(spuBo);
+    }
 
+    /**
+     * @param spuBo
+     */
+    private void AddSkuAndStock(SpuBo spuBo) {
         //新增sku表以及库存
         spuBo.getSkus().forEach(sku ->{
             sku.setId(null);
@@ -132,5 +137,72 @@ public class GoodsService {
             stock.setStock(sku.getStock());
             stockMapper.insertSelective(stock);
         });
+    }
+
+    /**
+     * 根据spuid查询spu详情
+     * @param spuId
+     * @return
+     */
+    public SpuDetail findSpuDetailBySpuId(Long spuId) {
+        return spuDetailMapper.selectByPrimaryKey(spuId);
+    }
+
+    /**
+     * 根据spuid查询sku集合
+     * @param spuId
+     * @return
+     */
+    public List<Sku> findSkusBySpuId(Long spuId){
+        Sku sku = new Sku();
+        sku.setSpuId(spuId);
+
+        List<Sku> skuList = skuMapper.select(sku);
+
+        skuList.forEach(sku1 -> {
+            Stock stock = stockMapper.selectByPrimaryKey(sku1.getId());
+            sku1.setStock(stock.getStock());
+        });
+        return skuList;
+    }
+
+    /**
+     * 修改商品
+     * @param spuBo
+     * @return
+     */
+    @Transactional
+    public void updateGoods(SpuBo spuBo) {
+        //根据spuid查询sku集合
+        Sku instance = new Sku();
+        instance.setSpuId(spuBo.getId());
+        List<Sku> skuList = skuMapper.select(instance);
+
+        if(!CollectionUtils.isEmpty(skuList)){
+            //删除每个sku的库存信息
+            skuList.forEach(sku -> {
+                Stock stock = new Stock();
+                stock.setSkuId(sku.getId());
+                stockMapper.delete(stock);
+            });
+
+            //删除sku信息
+            Sku sku = new Sku();
+            sku.setSpuId(spuBo.getId());
+            skuMapper.delete(sku);
+        }
+
+        //插入新的sku和库存信息
+        AddSkuAndStock(spuBo);
+
+        //更新spu
+        spuBo.setCreateTime(null);
+        spuBo.setLastUpdateTime(new Date());
+        spuBo.setValid(null);
+        spuBo.setSaleable(null);
+        spuMapper.updateByPrimaryKeySelective(spuBo);
+
+        //更新spudetail
+        spuDetailMapper.updateByPrimaryKeySelective(spuBo.getSpuDetail());
     }
 }

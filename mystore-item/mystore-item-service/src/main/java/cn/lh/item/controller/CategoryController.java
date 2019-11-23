@@ -40,4 +40,36 @@ public class CategoryController {
 
         return ResponseEntity.ok(categoryList);
     }
+
+    /**
+     * 根据id查询分类
+     * @param id
+     * @return
+     */
+    @GetMapping("/id")
+    public ResponseEntity<Category> findById(@RequestParam("id")Long id){
+        Category category = categoryService.findById(id);
+
+        if(category == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(category);
+    }
+
+    /**
+     * 根据id集合查询分类名称集合
+     * @param ids
+     * @return
+     */
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> findNamesByIds(@RequestParam("ids")List<Long> ids){
+        List<String> names = categoryService.findNamesByIds(ids);
+
+        if(CollectionUtils.isEmpty(names)){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(names);
+    }
 }

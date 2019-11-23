@@ -18,6 +18,7 @@ public class CorsConfig {
 
         //添加配置
         corsConfiguration.addAllowedOrigin("http://manage.mystore.com");
+        corsConfiguration.addAllowedOrigin("http://www.mystore.com");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.addAllowedHeader("*");

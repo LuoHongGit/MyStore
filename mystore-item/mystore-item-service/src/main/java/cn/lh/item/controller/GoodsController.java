@@ -2,16 +2,18 @@ package cn.lh.item.controller;
 
 import cn.lh.item.bo.SpuBo;
 import cn.lh.item.pojo.PageResult;
+import cn.lh.item.pojo.Sku;
+import cn.lh.item.pojo.SpuDetail;
 import cn.lh.item.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 商品控制层
@@ -50,7 +52,7 @@ public class GoodsController {
      * @param spuBo
      * @return
      */
-    @PostMapping
+    @PostMapping("/goods")
     public ResponseEntity<Void> addGoods(@RequestBody SpuBo spuBo){
         try {
             goodsService.addGoods(spuBo);
@@ -60,5 +62,53 @@ public class GoodsController {
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    /**
+     * 根据spuid查询spu详情
+     * @param spuId
+     * @return
+     */
+    @GetMapping("/spu/detail/{spuid}")
+    public ResponseEntity<SpuDetail> findSpuDetailBySpuId(@PathVariable("spuid")Long spuId){
+        SpuDetail spuDetail = goodsService.findSpuDetailBySpuId(spuId);
+
+        if(spuDetail == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(spuDetail);
+    }
+
+    /**
+     * 根据spuid查询sku集合
+     * @param spuId
+     * @return
+     */
+    @GetMapping("/sku/list")
+    public ResponseEntity<List<Sku>> findSkusBySpuId(@RequestParam("id")Long spuId){
+        List<Sku> skuList = goodsService.findSkusBySpuId(spuId);
+        if(StringUtils.isEmpty(skuList)){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(skuList);
+    }
+
+    /**
+     * 修改商品
+     * @param spuBo
+     * @return
+     */
+    @PutMapping("/goods")
+    public ResponseEntity<Void> updateGoods(@RequestBody SpuBo spuBo){
+        try {
+            goodsService.updateGoods(spuBo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

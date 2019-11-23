@@ -13,6 +13,7 @@
         <module>mystore-item</module>
         <module>mystore-common</module>
         <module>mystore-upload</module>
+        <module>mystore-search</module>
     </modules>
     <packaging>pom</packaging>
 

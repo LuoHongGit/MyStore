@@ -80,4 +80,11 @@ public class BrandService {
     public List<Brand> findByCid(Long cid) {
         return brandMapper.findByCid(cid);
     }
+
+    /**
+     * 根据品牌id查询品牌
+     */
+    public Brand findById(Long id) {
+        return brandMapper.selectByPrimaryKey(id);
+    }
 }
