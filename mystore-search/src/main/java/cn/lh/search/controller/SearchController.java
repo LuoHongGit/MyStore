@@ -1,8 +1,7 @@
 package cn.lh.search.controller;
 
-import cn.lh.item.pojo.PageResult;
-import cn.lh.search.pojo.Goods;
 import cn.lh.search.pojo.SearchRequest;
+import cn.lh.search.pojo.SearchResult;
 import cn.lh.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +24,12 @@ public class SearchController {
      * @return
      */
     @PostMapping("/page")
-    public ResponseEntity<PageResult<Goods>> findByPage(@RequestBody SearchRequest searchRequest){
-        PageResult<Goods> pageResult = searchService.findByPage(searchRequest);
+    public ResponseEntity<SearchResult> findByPage(@RequestBody SearchRequest searchRequest){
+        SearchResult searchResult = searchService.findByPage(searchRequest);
 
-        if(pageResult == null || CollectionUtils.isEmpty(pageResult.getItems())){
+        if(searchResult == null || CollectionUtils.isEmpty(searchResult.getItems())){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(pageResult);
+        return ResponseEntity.ok(searchResult);
     }
 }

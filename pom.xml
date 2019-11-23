@@ -14,6 +14,7 @@
         <module>mystore-common</module>
         <module>mystore-upload</module>
         <module>mystore-search</module>
+        <module>mystore-page</module>
     </modules>
     <packaging>pom</packaging>
 
