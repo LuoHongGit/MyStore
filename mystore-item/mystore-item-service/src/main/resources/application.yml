@@ -10,6 +10,14 @@ spring:
     hikari:
       max-lifetime: 28830000
       maximum-pool-size: 9
+  rabbitmq:
+    host: 192.168.138.129
+    username: mystore
+    password: mystore
+    virtual-host: /mystore
+    template:
+      exchange: mystore.item.exchange
+    publisher-confirms: true
 eureka:
   client:
     service-url:

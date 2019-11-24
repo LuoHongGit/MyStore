@@ -5,6 +5,11 @@ spring:
     name: page-service
   thymeleaf:
     cache: false
+  rabbitmq:
+    host: 192.168.138.129
+    username: mystore
+    password: mystore
+    virtual-host: /mystore
 eureka:
   client:
     service-url:

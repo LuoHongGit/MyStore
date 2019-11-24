@@ -6,6 +6,7 @@ import cn.lh.item.pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,9 @@ public class GoodsService {
 
     @Autowired
     private StockMapper stockMapper;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     /**
      * 分页查询Spu
@@ -137,6 +141,9 @@ public class GoodsService {
             stock.setStock(sku.getStock());
             stockMapper.insertSelective(stock);
         });
+
+        //发送消息到RabbitMQ服务器
+        sendMessage(spuBo.getId(),"insert");
     }
 
     /**
@@ -204,6 +211,9 @@ public class GoodsService {
 
         //更新spudetail
         spuDetailMapper.updateByPrimaryKeySelective(spuBo.getSpuDetail());
+
+        //发送消息到RabbitMQ服务器
+        sendMessage(spuBo.getId(),"update");
     }
 
     /**
@@ -213,5 +223,19 @@ public class GoodsService {
      */
     public Spu findById(Long id) {
         return spuMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 通用发送消息到RabbitMQ服务器
+     * @param id
+     * @param type
+     */
+    private void sendMessage(Long id, String type){
+        // 发送消息
+        try {
+            this.amqpTemplate.convertAndSend("item." + type, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

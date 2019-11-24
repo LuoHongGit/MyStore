@@ -332,4 +332,27 @@ public class SearchService {
             return brandClient.findById(Long.valueOf(bucket.getKeyAsString()));
         }).collect(Collectors.toList());
     }
+
+    /**
+     * 添加或新增数据
+     * @param id
+     * @throws Exception
+     */
+    public void createIndex(Long id) throws Exception {
+
+        Spu spu = this.goodsClient.findById(id);
+        // 构建商品
+        Goods goods = this.buildGoods(spu);
+
+        // 保存数据到索引库
+        this.goodsRepository.save(goods);
+    }
+
+    /**
+     * 删除指定id的数据
+     * @param id
+     */
+    public void deleteIndex(Long id) {
+        this.goodsRepository.deleteById(id);
+    }
 }

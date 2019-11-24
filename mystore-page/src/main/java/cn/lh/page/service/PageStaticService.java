@@ -52,4 +52,16 @@ public class PageStaticService {
             }
         }
     }
+
+    /**
+     * 删除静态文件页面
+     * @param id
+     */
+    public void deleteHtml(Long id) {
+        //创建文件对象
+        File file = new File("D:\\JavaTools\\nginx-1.14.0\\html\\page\\" + id + ".html");
+
+        //如果存在则删除
+        file.deleteOnExit();
+    }
 }
