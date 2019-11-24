@@ -16,23 +16,33 @@ import java.util.List;
 public interface SpecApi {
     /**
      * 根据分类id查询该分类下的规格参数组
+     *
      * @param cid
      * @return
      */
     @GetMapping("/groups/{cid}")
-    public List<SpecGroup> findSpecGroupByCid(@PathVariable("cid")Long cid);
+    public List<SpecGroup> findSpecGroupByCid(@PathVariable("cid") Long cid);
 
     /**
      * 根据参数组id查询规格参数
+     *
      * @param gid
      * @return
      */
     @GetMapping("/params")
     public List<SpecParam> findSpecParamByCondition(
-            @RequestParam(value = "gid",required = false)Long gid,
-            @RequestParam(value = "cid",required = false)Long cid,
-            @RequestParam(value = "generic",required = false)Boolean generic,
-            @RequestParam(value = "searching",required = false)Boolean searching
-            );
+            @RequestParam(value = "gid", required = false) Long gid,
+            @RequestParam(value = "cid", required = false) Long cid,
+            @RequestParam(value = "generic", required = false) Boolean generic,
+            @RequestParam(value = "searching", required = false) Boolean searching
+    );
 
+    /**
+     * 根据分类id查询该分类下的规格参数组及组下的参数
+     *
+     * @param cid
+     * @return
+     */
+    @GetMapping("/groupsAndParam/{cid}")
+    public List<SpecGroup> findSpecGroupWithParamByCid(@PathVariable("cid") Long cid);
 }

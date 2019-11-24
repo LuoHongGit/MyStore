@@ -60,4 +60,19 @@ public class SpecController {
         return ResponseEntity.ok(params);
     }
 
+    /**
+     * 根据分类id查询该分类下的规格参数组及组下的参数
+     * @param cid
+     * @return
+     */
+    @GetMapping("/groupsAndParam/{cid}")
+    public ResponseEntity<List<SpecGroup>> findSpecGroupWithParamByCid(@PathVariable("cid")Long cid){
+        List<SpecGroup> groups = specService.findSpecGroupWithParamByCid(cid);
+
+        if(CollectionUtils.isEmpty(groups)){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(groups);
+    }
 }

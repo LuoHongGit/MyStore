@@ -3,6 +3,7 @@ package cn.lh.item.api;
 import cn.lh.item.bo.SpuBo;
 import cn.lh.item.pojo.PageResult;
 import cn.lh.item.pojo.Sku;
+import cn.lh.item.pojo.Spu;
 import cn.lh.item.pojo.SpuDetail;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,5 +48,11 @@ public interface GoodsApi {
     @GetMapping("/sku/list")
     public List<Sku> findSkusBySpuId(@RequestParam("id")Long spuId);
 
-
+    /**
+     * 根据id查询spu
+     * @param id
+     * @return
+     */
+    @GetMapping("/spu/id")
+    public Spu findById(@RequestParam("id")Long id);
 }

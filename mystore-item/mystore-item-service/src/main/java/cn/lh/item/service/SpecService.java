@@ -53,4 +53,25 @@ public class SpecService {
 
         return paramList;
     }
+
+    /**
+     * 根据分类id查询该分类下的规格参数组及组下的参数
+     * @param cid
+     * @return
+     */
+    public List<SpecGroup> findSpecGroupWithParamByCid(Long cid) {
+        SpecGroup instance = new SpecGroup();
+        instance.setCid(cid);
+
+        List<SpecGroup> groupList = specGroupMapper.select(instance);
+
+        groupList.forEach(group -> {
+            SpecParam param = new SpecParam();
+            param.setGroupId(group.getId());
+            List<SpecParam> specParams = specParamMapper.select(param);
+            group.setParams(specParams);
+        });
+
+        return groupList;
+    }
 }

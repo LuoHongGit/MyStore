@@ -3,6 +3,7 @@ package cn.lh.item.controller;
 import cn.lh.item.bo.SpuBo;
 import cn.lh.item.pojo.PageResult;
 import cn.lh.item.pojo.Sku;
+import cn.lh.item.pojo.Spu;
 import cn.lh.item.pojo.SpuDetail;
 import cn.lh.item.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,5 +111,21 @@ public class GoodsController {
         }
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    /**
+     * 根据id查询spu
+     * @param id
+     * @return
+     */
+    @GetMapping("/spu/id")
+    public ResponseEntity<Spu> findById(@RequestParam("id")Long id){
+        Spu spu = goodsService.findById(id);
+
+        if(spu == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(spu);
     }
 }
