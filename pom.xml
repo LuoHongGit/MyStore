@@ -17,6 +17,7 @@
         <module>mystore-page</module>
         <module>mystore-user</module>
         <module>mystore-sms</module>
+        <module>mystore-auth</module>
     </modules>
     <packaging>pom</packaging>
 
