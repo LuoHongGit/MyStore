@@ -7,6 +7,13 @@ spring:
     url: jdbc:mysql:///mystore
     username: root
     password: 123
+  redis:
+    host: 192.168.138.129
+  rabbitmq:
+    host: 192.168.138.129
+    virtual-host: /mystore
+    username: mystore
+    password: mystore
 eureka:
   client:
     service-url:
