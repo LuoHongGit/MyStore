@@ -15,3 +15,17 @@ zuul:
     search-service: /search/**
     user-service: /user/**
     auth-service: /auth/**
+  add-host-header: true
+  sensitive-headers: # 不过滤响应头里的敏感字段
+mystore:
+  jwt:
+    pubKeyPath: E:\\MyTest\\rsa\\rsa.pub # 公钥地址
+    cookieName: MYSTORE_TOKEN
+  filter:
+    allowPaths:
+      - /api/auth
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item

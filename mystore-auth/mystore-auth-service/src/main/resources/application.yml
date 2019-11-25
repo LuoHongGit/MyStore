@@ -11,3 +11,10 @@ eureka:
   instance:
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 30
+mystore:
+  jwt:
+    secret: mystore@Login(Auth}*^31)&heiMa% # 登录校验的密钥
+    pubKeyPath: E:\\MyTest\\rsa\\rsa.pub # 公钥地址
+    priKeyPath: E:\\MyTest\\rsa\\rsa.pri # 私钥地址
+    expire: 30 # 过期时间,单位分钟
+    cookieName: MYSTORE_TOKEN
