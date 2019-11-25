@@ -1,0 +1,16 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: sms-service
+  rabbitmq:
+    host: 192.168.138.129
+    virtual-host: /mystore
+    username: mystore
+    password: mystore
+mystore:
+  sms:
+    accessKeyId: LTAI4FhNbyNgNGkbchaMm9WJ # 你自己的accessKeyId
+    accessKeySecret: PUPtCl4f95jlgUFUZ9FPRufGb1OVwp # 你自己的AccessKeySecret
+    signName: 我的商城 # 签名名称
+    verifyCodeTemplate: SMS_178451670 # 模板名称

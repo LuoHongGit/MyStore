@@ -16,6 +16,7 @@
         <module>mystore-search</module>
         <module>mystore-page</module>
         <module>mystore-user</module>
+        <module>mystore-sms</module>
     </modules>
     <packaging>pom</packaging>
 
