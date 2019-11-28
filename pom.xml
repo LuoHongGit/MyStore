@@ -18,6 +18,8 @@
         <module>mystore-user</module>
         <module>mystore-sms</module>
         <module>mystore-auth</module>
+        <module>mystore-cart</module>
+        <module>mystore-order</module>
     </modules>
     <packaging>pom</packaging>
 

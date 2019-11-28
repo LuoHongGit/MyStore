@@ -55,4 +55,12 @@ public interface GoodsApi {
      */
     @GetMapping("/spu/id")
     public Spu findById(@RequestParam("id")Long id);
+
+    /**
+     * 通过skuid查询sku
+     * @param id
+     * @return
+     */
+    @GetMapping("/sku")
+    public Sku findSkuById(@RequestParam("id")Long id);
 }

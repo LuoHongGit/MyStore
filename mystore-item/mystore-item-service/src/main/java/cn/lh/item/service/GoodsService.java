@@ -238,4 +238,13 @@ public class GoodsService {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 通过skuid查询sku
+     * @param id
+     * @return
+     */
+    public Sku findSkuById(Long id) {
+        return skuMapper.selectByPrimaryKey(id);
+    }
 }
